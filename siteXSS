@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XSS Vulnerable Site</title>
+</head>
+<body>
+    <h1>Welcome to the XSS Testing Site</h1>
+    <p>This site is intentionally vulnerable to XSS for testing purposes.</p>
+
+    <!-- Input Form -->
+    <form id="inputForm">
+        <label for="userInput">Enter your input:</label>
+        <input type="text" id="userInput" placeholder="Type something here">
+        <button type="submit">Submit</button>
+    </form>
+
+    <hr>
+
+    <!-- Vulnerable Output -->
+    <div>
+        <h2>Output:</h2>
+        <p id="output"></p>
+    </div>
+
+    <footer>
+        <p><strong>Note:</strong> This site is for educational purposes only. Do not expose it to the public internet.</p>
+    </footer>
+
+    <script>
+        // This script makes the site vulnerable to XSS
+        document.getElementById('inputForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get user input
+            const userInput = document.getElementById('userInput').value;
+
+            // Directly inject user input into the DOM (vulnerable to XSS)
+            document.getElementById('output').innerHTML = `You entered: ${userInput}`;
+        });
+    </script>
+</body>
+</html>
